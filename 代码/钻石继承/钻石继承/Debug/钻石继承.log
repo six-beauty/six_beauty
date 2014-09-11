@@ -1,0 +1,13 @@
+﻿生成启动时间为 2014-9-11 8:48:58。
+     1>项目“E:\代码2\钻石继承\钻石继承\钻石继承.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Debug\钻石继承.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         D:\Program Files\visual studio 2010\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt virtual.cpp
+         virtual.cpp
+     1>e:\代码2\钻石继承\钻石继承\virtual.cpp(25): error C2512: “A::A”: 没有合适的默认构造函数可用
+     1>已完成生成项目“E:\代码2\钻石继承\钻石继承\钻石继承.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.40
