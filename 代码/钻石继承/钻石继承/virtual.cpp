@@ -13,7 +13,7 @@ public:
 		this->m_x = x;
 	}
 };
-class C : public A {
+class C :virtual public A {
 public:
 	C (int x) : A(x) {}
 	int get(void) {
@@ -22,12 +22,21 @@ public:
 };
 class D :public B,public C {
 public:
-	D (int x) : B(x),C(x){}
+	D (int x) : B(x),C(x),A(x){}
 	
+};
+class E:public D
+{
+public:
+	E (int x) : D(x),A(x){};
+
 };
 int main(void) {
 	D d(10);
+	E e(12);
 	d.set(20);
+	e.set(31);
 	cout << d.get() << endl;
+	cout << e.get() << endl;
 	return 0;
 }
