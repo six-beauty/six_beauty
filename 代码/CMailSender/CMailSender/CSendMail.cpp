@@ -43,7 +43,7 @@ bool CSendMail::Connent()
 
 	if(!Logon())//建立连接  
 	{  
-		m_logInfo.logInfo("登陆失败,请检查邮箱账号和密码是否正确！");
+		m_logInfo.logInfo("登陆失败！");
 		return false;  
 	}
 	return true;
@@ -65,7 +65,7 @@ bool CSendMail::SendMail(const std::string mail_title,const std::string send_con
 
 	if(!SendHead())//发送邮件头  
 	{  
-		m_logInfo.logInfo("发送邮件头失败,请检查邮箱地址是否正确!");
+		m_logInfo.logInfo("发送邮件头失败！");
 		return false;  
 	}  
 
@@ -412,7 +412,7 @@ bool CSendMail::SendHead()
 	sendRequest(msg);
 	if(!rcvResponse("250"))
 	{
-		m_logInfo.logInfo("邮件地址错误：%s",m_SenderAddr);
+		m_logInfo.logInfo("邮件地址错误：%s",m_SenderAddr.c_str());
 		return false;
 	}
 
