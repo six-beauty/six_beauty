@@ -9,10 +9,10 @@ int main()
 //	freopen("F://mailfile//out.txt","w+",stdout);
 	
 	sMailer.setServerName("smtp.126.com");														//邮箱smtp,如"smtp.126.com"
-	sMailer.setUserName("ligang_sanyue");																//邮箱账号名，如"****@126.com"
+	sMailer.setUserName("ligang_sanyue@126.com");																//邮箱账号名，如"****@126.com"
 	sMailer.setUserPwd("abc123456");																//邮箱密码
 	sMailer.setSenderName("陈家喵");																//发件人名字
-	sMailer.setSenderAddress("sanyue9394@126.com");												//发送邮箱地址，填你账号的地址,上面的邮箱账号名"****@126.com"
+	sMailer.setSenderAddress("ligang_sanyue@126.com");												//发送邮箱地址，填你账号的地址,上面的邮箱账号名"****@126.com"
 
 	sMailer.setReceiver("柯林林","kelinting@163.com");											//添加邮件接收者
 	sMailer.addReceiver("小琳琳","315148032@qq.com");
