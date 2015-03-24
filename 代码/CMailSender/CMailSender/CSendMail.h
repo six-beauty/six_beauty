@@ -11,9 +11,6 @@
 #include "LogInfo.h"
 #include <winsock2.h>
 
-#pragma comment(lib,"WSOCK32")  
-#pragma comment(lib, "ws2_32")
-
 //类型定义
 const int MAX_BUFFER_SIZE = 255;							//send和recv的缓存buffer的size
 const int SERVICE_PORT=25;									//端口

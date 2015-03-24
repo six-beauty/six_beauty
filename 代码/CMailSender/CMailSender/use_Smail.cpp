@@ -15,11 +15,12 @@ int main()
 	sMailer.setSenderAddress("sanyue9394@126.com");												//发送邮箱地址，填你账号的地址,上面的邮箱账号名"****@126.com"
 
 	sMailer.setReceiver("柯林林","kelinting@163.com");											//添加邮件接收者
-	sMailer.addReceiver("小琳琳","315148032@qq.com");
+	sMailer.addReceiver("sixbeauty","sanyue9394@126.com");
 
-	sMailer.AddFilePath("F:\\mailfile\\55e736d12f2eb938e9ea5eb1d5628535e4dd6fe9.jpg");			//添加附件
-	sMailer.AddFilePath("F:/mailfile/libcurl.exp");												//添加附件
+	sMailer.AddFilePath("F:\\mailfile\\out.txt");			//添加附件
+//	sMailer.AddFilePath("F:/mailfile/libcurl.exp");												//添加附件
 
+	//发送第一份邮件
 	if(sMailer.Connent())																		//每次发邮件前都需要connect
 	{
 		if(sMailer.SendMail("CMailSender:阿垃垃圾君","你想快速发家致富吗？你想一夜成名吗？访问 http://www.sb.com"))			//第一个字符串是邮件标题，第二个是邮件内容
@@ -27,6 +28,7 @@ int main()
 
 	}	
 
+	//发送第二份邮件
 	if(sMailer.Connent())																		//每次发邮件前都需要connect
 	{
 		std::string title,content;

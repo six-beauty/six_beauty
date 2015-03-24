@@ -4,11 +4,14 @@
 **program by six_beauty
 */
 
-#include <afx.h>
+//#include <afx.h>
 #include "CSendMail.h"
 #include "time.h"
 #include <sstream>
 #include <fstream>
+#pragma comment(lib,"WSOCK32")  
+#pragma comment(lib, "ws2_32")
+
 
 const std::string _AppOctStrmContent_encode_chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 

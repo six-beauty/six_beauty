@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IOCP服务器noclass", "IOCP服务器noclass\IOCP服务器noclass.vcxproj", "{7271DEC5-8799-475B-A6D3-44762D9F7BDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7271DEC5-8799-475B-A6D3-44762D9F7BDD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7271DEC5-8799-475B-A6D3-44762D9F7BDD}.Debug|Win32.Build.0 = Debug|Win32
+		{7271DEC5-8799-475B-A6D3-44762D9F7BDD}.Release|Win32.ActiveCfg = Release|Win32
+		{7271DEC5-8799-475B-A6D3-44762D9F7BDD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
