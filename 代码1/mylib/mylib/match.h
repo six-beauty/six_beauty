@@ -1,0 +1,25 @@
+// MathFuncsLib.h
+#ifndef _MATCH_H
+#define _MATCH_H
+
+namespace MathFuncs
+{
+	class MyMathFuncs
+	{
+	public:
+		// Returns a + b
+		static double Add(double a, double b);
+
+		// Returns a - b
+		static double Subtract(double a, double b);
+
+		// Returns a * b
+		static double Multiply(double a, double b);
+
+		// Returns a / b
+		// Throws DivideByZeroException if b is 0
+		static double Divide(double a, double b);
+	};
+}
+
+#endif

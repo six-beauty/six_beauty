@@ -1,0 +1,30 @@
+﻿生成启动时间为 2014-8-11 11:35:28。
+     1>项目“E:\代码\pyCallStr_CStr\pyCallStr_CStr\pyCallStr_CStr.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Release\pyCallStr_CStr.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+         D:\Program Files\visual studio 2010\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _MBCS /D _AFXDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Release\pyCallStr_CStr.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         D:\Program Files\visual studio 2010\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _MBCS /D _AFXDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\pyCallStr_CStr.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt pyCallStr_CStr.cpp
+         pyCallStr_CStr.cpp
+       ResourceCompile:
+         所有输出均为最新。
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _AFXDLL /l"0x0409" /nologo /fo"Release\pyCallStr_CStr.res" pyCallStr_CStr.rc 
+       Link:
+         D:\Program Files\visual studio 2010\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\代码\pyCallStr_CStr\Release\pyCallStr_CStr.exe" /INCREMENTAL:NO /NOLOGO /MANIFEST /ManifestFile:"Release\pyCallStr_CStr.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\代码\pyCallStr_CStr\Release\pyCallStr_CStr.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\代码\pyCallStr_CStr\Release\pyCallStr_CStr.lib" /MACHINE:X86 Release\pyCallStr_CStr.res
+         Release\pyCallStr_CStr.obj
+         Release\stdafx.obj
+         正在生成代码
+         已完成代码的生成
+         pyCallStr_CStr.vcxproj -> E:\代码\pyCallStr_CStr\Release\pyCallStr_CStr.exe
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\代码\pyCallStr_CStr\Release\pyCallStr_CStr.exe;#1" /manifest Release\pyCallStr_CStr.exe.intermediate.manifest "D:\Program Files\visual studio 2010\VC\Include\Manifest\dpiaware.manifest"
+       FinalizeBuildStatus:
+         正在删除文件“Release\pyCallStr_CStr.unsuccessfulbuild”。
+         正在对“Release\pyCallStr_CStr.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\代码\pyCallStr_CStr\pyCallStr_CStr\pyCallStr_CStr.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:04.68
