@@ -46,15 +46,15 @@ CAdoDataBase::CAdoDataBase() : m_dwResumeConnectCount(30L),m_dwResumeConnectTime
 
 	//创建对象
 	m_DBCommand.CreateInstance(__uuidof(Command));
-	m_DBRecordset.CreateInstance(__uuidof(Recordset));
+//	m_DBRecordset.CreateInstance(__uuidof(Recordset));
 	m_DBConnection.CreateInstance(__uuidof(Connection));
 
 	//效验数据
 	ASSERT(m_DBCommand!=NULL);
-	ASSERT(m_DBRecordset!=NULL);
+//	ASSERT(m_DBRecordset!=NULL);
 	ASSERT(m_DBConnection!=NULL);
 	if (m_DBCommand==NULL) throw TEXT("数据库命令对象创建失败");
-	if (m_DBRecordset==NULL) throw TEXT("数据库记录集对象创建失败");
+//	if (m_DBRecordset==NULL) throw TEXT("数据库记录集对象创建失败");
 	if (m_DBConnection==NULL) throw TEXT("数据库连接对象创建失败");
 
 	//设置变量
@@ -71,8 +71,9 @@ CAdoDataBase::~CAdoDataBase()
 
 	//释放对象
 	m_DBCommand.Release();
-	m_DBRecordset.Release();
 	m_DBConnection.Release();
+	if(m_DBRecordset != NULL)
+		m_DBRecordset.Release();
 
 	return;
 }
@@ -105,9 +106,13 @@ bool __cdecl CAdoDataBase::OpenConnection()
 //关闭记录
 bool __cdecl CAdoDataBase::CloseRecordset()
 {
+	if(m_DBRecordset == NULL)
+		return true;
 	try 
 	{
 		if (IsRecordsetOpened()) EfficacyResult(m_DBRecordset->Close());
+		m_DBRecordset.Release();
+		m_DBRecordset=NULL;
 		return true;
 	}
 	catch (CComError & ComError) { SetErrorInfo(ErrorType_Other,GetComErrorDescribe(ComError)); }
@@ -682,9 +687,13 @@ bool __cdecl CAdoDataBase::ExecuteCommand(bool bRecordset)
 		//执行命令
 		if (bRecordset==true)
 		{
+			/*
 			m_DBRecordset->PutRefSource(m_DBCommand);
 			m_DBRecordset->CursorLocation=adUseClient;
 			EfficacyResult(m_DBRecordset->Open((IDispatch *)m_DBCommand,vtMissing,adOpenForwardOnly,adLockReadOnly,adOptionUnspecified));
+			*/
+			m_DBConnection->CursorLocation=adUseClient;
+			m_DBRecordset = m_DBCommand->Execute(NULL, NULL, adCmdStoredProc);
 		}
 		else 
 		{

@@ -59,12 +59,11 @@ void myRun(CAdoDataBase *pDataBase)
 int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 {
 	InitInstance();
-
 	CAdoDataBase *pDataBase = new CAdoDataBase();
 	pDataBase->SetConnectionInfo("192.168.3.214",1433,"LK78TestDB","sixbeauty","sanyue9394");
 	pDataBase->OpenConnection();
 	ConstructOutput();
-	for(int i=0;i<100;++i)
+	for(int i=0;i<1000;++i)
 		myRun(pDataBase);
 	delete pDataBase;
 	unInitInstance();

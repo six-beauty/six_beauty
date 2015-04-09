@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "adoLeakCheck", "adoLeakCheck\adoLeakCheck.vcxproj", "{22F1C7D9-752F-4B52-BCFF-C1A283A59CD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22F1C7D9-752F-4B52-BCFF-C1A283A59CD2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22F1C7D9-752F-4B52-BCFF-C1A283A59CD2}.Debug|Win32.Build.0 = Debug|Win32
+		{22F1C7D9-752F-4B52-BCFF-C1A283A59CD2}.Release|Win32.ActiveCfg = Release|Win32
+		{22F1C7D9-752F-4B52-BCFF-C1A283A59CD2}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
