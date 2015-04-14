@@ -11,15 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2BA0D7FF-D954-42F8-8E63-9A88D06B6B4D}</ProjectGuid>
+    <ProjectGuid>{36A9BE08-E956-4600-904D-A52ABB79C86E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>HttpSession</RootNamespace>
+    <RootNamespace>useLibcurl</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -75,16 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="HttpRqHandler.h" />
-    <ClInclude Include="HttpSessionMaster.h" />
-    <ClInclude Include="ServiceThread.h" />
-    <ClInclude Include="util.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="httpRequest.cpp" />
-    <ClCompile Include="HttpRqHandler.cpp" />
-    <ClCompile Include="HttpSessionMaster.cpp" />
-    <ClCompile Include="ServiceThread.cpp" />
+    <ClCompile Include="useLibcurl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

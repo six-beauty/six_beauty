@@ -17,9 +17,10 @@ private:
 	BYTE			m_cbBuffer[MAX_DATA_PACKET];		//接收缓冲
 
 public:
-	HttpSessionWorkBase(HANDLE hCompletionPort);
+	HttpSessionWorkBase();
 	virtual ~HttpSessionWorkBase();
-private:
+	bool InitThread(HANDLE hCompletionPort);
+protected:
 	//运行函数
 	virtual bool RepetionRun();
 	//工作函数,需要由继承HttpSessionWorkBase的类实现
@@ -32,11 +33,11 @@ private:
 template<class T>
 class HttpSessionMaster
 {
-	typedef std::list<char*>	TaskQueue;
+	typedef std::list<void*>	TaskQueue;
 public:
 	bool StartService();
 	void StopService();
-	bool SetTaskDataSize(UINT uSize);
+	void SetTaskDataSize(UINT uSize);
 	void PostTask(void* pBuffer,unsigned int uSize);
 public:
 	HttpSessionMaster();
@@ -80,7 +81,8 @@ bool HttpSessionMaster<T>::StartService()
 
 		for(int i=0;i<uThreadCount;++i)
 		{
-			HttpSessionWorkBase *pWork = new T(m_hCompletionPort);
+			HttpSessionWorkBase *pWork = new T();
+			pWork->InitThread(m_hCompletionPort);
 			if (pWork == NULL)
 				throw ("工作线程创建失败!");
 			m_WorkerThread.push_back(pWork);
@@ -109,7 +111,7 @@ void HttpSessionMaster<T>::StopService()
 	{
 		HttpSessionWorkBase *pWork = m_WorkerThread[i];
 		pWork->StopThread();
-		SafeDelete(pWork);
+		if(pWork != NULL)	delete pWork;
 	}
 
 	//关闭完成端口handle
@@ -119,4 +121,58 @@ void HttpSessionMaster<T>::StopService()
 		m_hCompletionPort = NULL;
 	}
 }
+
+template<class T>
+void HttpSessionMaster<T>::SetTaskDataSize(UINT uSize)
+{
+	CThreadLockHandle LockHandle(&m_ThreadLock);
+	m_uPerTaskDataSize = uSize;
+}
+
+template<class T>
+void HttpSessionMaster<T>::PostTask(void* pBuffer,unsigned int uSize)
+{
+	CThreadLockHandle LockHandle(&m_ThreadLock);
+	if(uSize != m_uPerTaskDataSize)
+	{
+		//数据的大小不符合要求
+		return ;
+	}
+
+	void *ptr;
+	if(!m_FreeTaskQueue.empty())
+	{
+		ptr = m_FreeTaskQueue.back();
+		m_FreeTaskQueue.pop_back();
+	}
+	else
+	{
+		ptr = new char(m_uPerTaskDataSize);
+	}
+
+	memcpy(ptr,pBuffer,uSize);
+	m_TaskQueue.push_front(ptr);
+	PostQueuedCompletionStatus(m_hCompletionPort,uSize,(ULONG_PTR)this,NULL);
+}
+
+template<class T>
+bool HttpSessionMaster<T>::GetTask(void *pBuffer,unsigned int &uSize)
+{
+	CThreadLockHandle LockHandle(&m_ThreadLock);
+	uSize = m_uPerTaskDataSize;
+
+	if(m_TaskQueue.empty())
+		return false;
+
+	void *ptr = m_TaskQueue.back();
+	m_TaskQueue.pop_back();
+
+	memcpy(pBuffer,ptr,m_uPerTaskDataSize);
+	m_FreeTaskQueue.push_front(ptr);
+
+	return true;
+}
+
+
+
 

@@ -43,9 +43,9 @@ void myRun(CAdoDataBase *pDataBase)
 		pDataBase->GetFieldValue(_TEXT("KindID"),kindID);
 		pDataBase->GetFieldValue(_TEXT("RoomName"),roomName,sizeof(roomName));
 		pDataBase->CloseRecordset();
-	//	CString valMsg;
-	//	valMsg.Format("查询到房间kindID:%d,房间名：%s",kindID,roomName);
-	//	std::cout<<valMsg<<std::endl;
+//		CString valMsg;
+//		valMsg.Format("查询到房间kindID:%d,房间名：%s",kindID,roomName);
+//		std::cout<<valMsg<<std::endl;
 	}
 	catch (IADOError* pIADOError)
 	{
@@ -63,8 +63,11 @@ int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 	pDataBase->SetConnectionInfo("192.168.3.214",1433,"LK78TestDB","sixbeauty","sanyue9394");
 	pDataBase->OpenConnection();
 	ConstructOutput();
-	for(int i=0;i<1000;++i)
+	DWORD dwStart = GetTickCount();
+	for(int i=0;i<100000;++i)
 		myRun(pDataBase);
+	DWORD dwEnd = GetTickCount();
+	std::cout<<"执行时间:"<<dwEnd-dwStart<<std::endl;
 	delete pDataBase;
 	unInitInstance();
 	ConstructOutput();

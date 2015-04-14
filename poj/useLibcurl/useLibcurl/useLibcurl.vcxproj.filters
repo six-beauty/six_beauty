@@ -15,30 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ServiceThread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpSessionMaster.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpRqHandler.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ServiceThread.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="httpRequest.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpSessionMaster.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpRqHandler.cpp">
+    <ClCompile Include="useLibcurl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

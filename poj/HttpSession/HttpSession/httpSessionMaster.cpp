@@ -1,11 +1,29 @@
 #include "./HttpSessionMaster.h"
+/**********************************************************************
+模块:网页交互基类
+使用:1、在main中添加两个全局函数
+		curl_global_init(CURL_GLOBAL_DEFAUTL);
+		curl_global_cleanup();
+	 2、实现一个worker子类并继承HttpSessionWorkerBase,实现HandleTask函数
+	 3、把实现的worker子类作为模板类型传给HttpSessionMaster
+注意：HandleTask() 函数需要保证线程安全
+**********************************************************************/
 
-HttpSessionWorkBase::HttpSessionWorkBase(HANDLE hCompletionPort):m_hCompletionPort(hCompletionPort)
+
+HttpSessionWorkBase::HttpSessionWorkBase():m_hCompletionPort(NULL)
 {
 }
 
 HttpSessionWorkBase::~HttpSessionWorkBase()
 {
+}
+
+bool HttpSessionWorkBase::InitThread(HANDLE hCompletionPort)
+{
+	if(hCompletionPort == NULL)	
+		return false;
+	m_hCompletionPort = hCompletionPort;
+	return true;
 }
 
 bool HttpSessionWorkBase::RepetionRun()
@@ -29,7 +47,8 @@ bool HttpSessionWorkBase::RepetionRun()
 
 		//获取数据
 		memset(m_cbBuffer,0,sizeof(m_cbBuffer));
-		bool bGet = pQueueService->GetTask(m_cbBuffer,sizeof(m_cbBuffer));
+		unsigned int uSize;
+		bool bGet = pQueueService->GetTask(m_cbBuffer,uSize);
 
 		if(bGet==true)
 		{
