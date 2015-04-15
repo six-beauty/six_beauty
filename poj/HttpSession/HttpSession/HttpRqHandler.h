@@ -15,11 +15,11 @@ protected:
 
 class HttpRqWorker: public HttpSessionWorkBase
 {
+public:
 	HttpRqWorker(){};
 	~HttpRqWorker(){};
-protected:
 public:
-	virtual void HandleTask(void* pBuffer,WORD wSize);
+	virtual void HandleTask(const void* pBuffer,unsigned int uSize);
 
 private:
 	CThreadLock m_threadLock;
@@ -36,8 +36,8 @@ public:
 		return singleInstance;
 	}
 
-//	void Init();
-//	void StopService();
+	void Init();
+	void StopService();
 
 	bool PostTask(std::string szUrl,std::string szContext,WORD contextSize); 
 	HttpRqHandler();

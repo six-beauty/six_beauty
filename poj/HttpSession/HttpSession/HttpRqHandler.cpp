@@ -9,10 +9,10 @@ struct tagHttpTaskData
 	WORD	contextSize;		//context的长度，若Http gets操作，为0
 };
 
-void HttpRqWorker::HandleTask(void* pBuffer,WORD wSize)
+void HttpRqWorker::HandleTask(const void* pBuffer,unsigned int wSize)
 {
-	if(sizeof(tagHttpTaskData)==wSize)	return;
-	if(pBuffer != NULL)	return;
+	if(sizeof(tagHttpTaskData)!=wSize)	return;
+	if(pBuffer == NULL)	return;
 	tagHttpTaskData *pTaskData = (tagHttpTaskData*)pBuffer;
 
 	try
@@ -56,12 +56,19 @@ void HttpRqWorker::HandleTask(void* pBuffer,WORD wSize)
 
 HttpRqHandler::HttpRqHandler()
 {
-
 }
 
 HttpRqHandler::~HttpRqHandler()
 {
+}
 
+void HttpRqHandler::Init()
+{
+	m_SessionMaster.StartService();
+}
+void HttpRqHandler::StopService()
+{
+	m_SessionMaster.StopService();
 }
 
 bool HttpRqHandler::PostTask(std::string szUrl,std::string szContext,WORD contextSize)

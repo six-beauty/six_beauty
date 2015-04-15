@@ -22,7 +22,7 @@ public:
 	bool InitThread(HANDLE hCompletionPort);
 protected:
 	//运行函数
-	virtual bool RepetionRun();
+	virtual bool RepetitionRun();
 	//工作函数,需要由继承HttpSessionWorkBase的类实现
 	virtual void HandleTask(const void* pBuffer,unsigned int uSize);
 
@@ -33,11 +33,10 @@ protected:
 template<class T>
 class HttpSessionMaster
 {
-	typedef std::list<void*>	TaskQueue;
+	typedef std::list<char*>	TaskQueue;
 public:
 	bool StartService();
 	void StopService();
-	void SetTaskDataSize(UINT uSize);
 	void PostTask(void* pBuffer,unsigned int uSize);
 public:
 	HttpSessionMaster();
@@ -61,13 +60,13 @@ HttpSessionMaster<T>::HttpSessionMaster():m_hCompletionPort(NULL)
 template<class T>
 HttpSessionMaster<T>::~HttpSessionMaster()
 {
-	StopService();
 }
 
 template<class T>
 bool HttpSessionMaster<T>::StartService()
 {
-	ASSERT(m_hCompletionPort == NULL);
+	if(m_hCompletionPort != NULL)
+		return false;
 
 	try
 	{
@@ -79,7 +78,7 @@ bool HttpSessionMaster<T>::StartService()
 		//建立完成端口
 		m_hCompletionPort=CreateIoCompletionPort(INVALID_HANDLE_VALUE,NULL,NULL,SystemInfo.dwNumberOfProcessors);
 
-		for(int i=0;i<uThreadCount;++i)
+		for(unsigned int i=0;i<uThreadCount;++i)
 		{
 			HttpSessionWorkBase *pWork = new T();
 			pWork->InitThread(m_hCompletionPort);
@@ -87,12 +86,23 @@ bool HttpSessionMaster<T>::StartService()
 				throw ("工作线程创建失败!");
 			m_WorkerThread.push_back(pWork);
 		}
-		for(int i=0;i<)
+		for(int i=0;i< (int)m_WorkerThread.size(); ++i)
+		{
+			HttpSessionWorkBase* pWorkerThread = m_WorkerThread[i];
+			if(pWorkerThread->StartThead() == false)
+				throw ("工作线程启动失败");
+		}
+
+		for(TaskQueue::iterator itr = m_TaskQueue.begin();itr != m_TaskQueue.end();++itr)
+		{
+			m_FreeTaskQueue.push_back(*itr);
+		}
+		m_TaskQueue.clear();
+		m_uPerTaskDataSize = 0;
 	}
 	catch (...)
 	{
 		//出现了Exception
-		ASSERT(false);
 		return false;
 	}
 	return true;
@@ -107,7 +117,8 @@ void HttpSessionMaster<T>::StopService()
 			PostQueuedCompletionStatus(m_hCompletionPort,0,NULL,NULL);
 	}
 
-	for(int i=0;i<(int)m_WorkerThread.size();++i)
+	unsigned int threadCount = m_WorkerThread.size();
+	for(unsigned int i=0;i<threadCount;++i)
 	{
 		HttpSessionWorkBase *pWork = m_WorkerThread[i];
 		pWork->StopThread();
@@ -123,23 +134,16 @@ void HttpSessionMaster<T>::StopService()
 }
 
 template<class T>
-void HttpSessionMaster<T>::SetTaskDataSize(UINT uSize)
-{
-	CThreadLockHandle LockHandle(&m_ThreadLock);
-	m_uPerTaskDataSize = uSize;
-}
-
-template<class T>
 void HttpSessionMaster<T>::PostTask(void* pBuffer,unsigned int uSize)
 {
 	CThreadLockHandle LockHandle(&m_ThreadLock);
 	if(uSize != m_uPerTaskDataSize)
 	{
 		//数据的大小不符合要求
-		return ;
+		m_uPerTaskDataSize = uSize;
 	}
 
-	void *ptr;
+	char *ptr;
 	if(!m_FreeTaskQueue.empty())
 	{
 		ptr = m_FreeTaskQueue.back();
@@ -150,7 +154,7 @@ void HttpSessionMaster<T>::PostTask(void* pBuffer,unsigned int uSize)
 		ptr = new char(m_uPerTaskDataSize);
 	}
 
-	memcpy(ptr,pBuffer,uSize);
+	lstrcpyn(ptr,(char*)pBuffer,uSize);
 	m_TaskQueue.push_front(ptr);
 	PostQueuedCompletionStatus(m_hCompletionPort,uSize,(ULONG_PTR)this,NULL);
 }
@@ -164,10 +168,10 @@ bool HttpSessionMaster<T>::GetTask(void *pBuffer,unsigned int &uSize)
 	if(m_TaskQueue.empty())
 		return false;
 
-	void *ptr = m_TaskQueue.back();
+	char *ptr = m_TaskQueue.back();
 	m_TaskQueue.pop_back();
 
-	memcpy(pBuffer,ptr,m_uPerTaskDataSize);
+	lstrcpyn((char*)pBuffer,ptr,m_uPerTaskDataSize);
 	m_FreeTaskQueue.push_front(ptr);
 
 	return true;

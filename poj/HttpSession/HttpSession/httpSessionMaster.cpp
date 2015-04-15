@@ -26,7 +26,7 @@ bool HttpSessionWorkBase::InitThread(HANDLE hCompletionPort)
 	return true;
 }
 
-bool HttpSessionWorkBase::RepetionRun()
+bool HttpSessionWorkBase::RepetitionRun()
 {
 	//校验参数
 	if(m_hCompletionPort==NULL)
